@@ -40,20 +40,20 @@ df <- df %>%
          force = ifelse(force == "Metropolitan","Metropolitan Police",force))
 
 #from" https://data.gov.uk/dataset/d014d7d2-1836-468f-97b8-bb7d0b061bf7/local-authority-district-to-community-safety-partnerships-to-police-force-areas-december-2016-lookup-in-england-and-wales
-lookup <- read.csv("/Users/danielgray/Desktop/fpn/Local_Authority_District_to_Community_Safety_Partnerships_to_Police_Force_Areas_(December_2016)_Lookup_in_England_and_Wales.csv") %>%
+lookup <- read.csv("/Users/danielgray/Desktop/projects/fpn_git/Local_Authority_District_to_Community_Safety_Partnerships_to_Police_Force_Areas_(December_2016)_Lookup_in_England_and_Wales.csv") %>%
           rename(force = PFA16NM) %>% select(force,LAD16CD)
 
 df <- left_join(df,lookup, by = c("force")) %>%
       select(force, LAD16CD, FPN)
 
 #from https://www.ons.gov.uk/releases/mappingincomedeprivationatalocalauthoritylevel2019
-lookup_2 <- read_excel(path = "/Users/danielgray/Desktop/fpn/localincomedeprivationdata.xlsx", sheet = "Local authorities") %>%
+lookup_2 <- read_excel(path = "/Users/danielgray/Desktop/projects/fpn_git/localincomedeprivationdata.xlsx", sheet = "Local authorities") %>%
             rename(LAD16CD = 1,
                    deprivation = 3) %>%
             select(LAD16CD,deprivation)
 
 #from https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/populationestimatesforukenglandandwalesscotlandandnorthernireland
-lookup_3 <- read_excel(path = "/Users/danielgray/Desktop/fpn/ukpopestimatesmid2020on2021geography.xls", sheet = "MYE2 - Persons") %>%
+lookup_3 <- read_excel(path = "/Users/danielgray/Desktop/projects/fpn_git/ukpopestimatesmid2020on2021geography.xls", sheet = "MYE2 - Persons") %>%
   rename(pop = 4,
          LAD16CD = 1) %>%
   select(LAD16CD,pop)
